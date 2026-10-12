@@ -25,12 +25,24 @@ npm run preview
 Interactive parts are React islands: `AskAI.tsx` (chat), `Projects.tsx` (filter), `CopyEmail.tsx`.
 Everything else is static Astro, so it ships zero JS.
 
-## Ask-my-AI
+## Ask-my-AI (free, via Groq)
 
-The widget works offline with keyword answers from `src/data/assistant.ts`.
-To use a real LLM, set `PUBLIC_ASK_ENDPOINT` to a URL that accepts
-`POST { "question": string }` and returns `{ "answer": string }`.
-If the endpoint fails, the widget falls back to the offline answers.
+The chat calls `/api/ask` (`src/pages/api/ask.ts`), a Vercel serverless function that sends the
+question plus a short profile built from `src/data/*` (`src/data/profile.ts`) to Groq's free
+`llama-3.1-8b-instant` model. Edit your data files and the AI learns it automatically.
+
+Setup (free, no credit card):
+
+1. Create a key at https://console.groq.com/keys
+2. Import this repo into Vercel (Hobby plan is free).
+3. Vercel → Project → Settings → Environment Variables → add `GROQ_API_KEY`, then redeploy.
+
+For local testing, copy `.env.example` to `.env` and paste the key.
+
+Groq's free tier allows a few hundred questions a day with this setup. Each visitor is limited
+to 15 questions an hour. If the key is missing, Groq is down, or the daily quota runs out, the widget
+quietly falls back to the offline answers in `src/data/assistant.ts`.
+Optional: set `GROQ_MODEL` to try another Groq model.
 
 ## TODO before launch
 

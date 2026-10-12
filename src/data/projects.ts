@@ -68,11 +68,11 @@ export const projects: Project[] = [
     title: "Ask-my-AI Bot",
     dark: true,
     summary:
-      "The chat on this site's homepage — an AI assistant that answers questions about my work, built with an LLM API and my own project data.",
+      "The chat on this site's homepage — an AI assistant that answers questions about my work, powered by an open-source LLM on Groq and grounded in my own project data.",
     categories: ["ai"],
-    stack: ["LLM API", "Astro", "React", "[vector store]"],
+    stack: ["Groq · Llama 3.1", "Astro", "React", "Vercel"],
     caseStudy: "#ask",
-    badge: { label: "AI · Coming soon", className: "bg-sun rotate-3" },
+    badge: { label: "AI · Live", className: "bg-sun rotate-3" },
     media: { color: "bg-cobalt", placeholder: "“What has Nour built?”" },
   },
 ];
