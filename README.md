@@ -46,6 +46,12 @@ to 15 questions an hour. If the key is missing, Groq is down, or the daily quota
 quietly falls back to the offline answers in `src/data/assistant.ts`.
 Optional: set `GROQ_MODEL` to try another Groq model.
 
+Token savers:
+- Short, clear questions that match the site's info ("Your stack?", "Where are you based?") are
+  answered instantly in the browser from `src/data/assistant.ts`, without calling the AI.
+  Detailed or ambiguous questions, and follow-ups, still go to the AI.
+- The server remembers answers to repeat questions for 12 hours and reuses them.
+
 ## TODO before launch
 
 - Replace the `[placeholders]` (fun fact, BrandXB dates, project screenshots, client logos).

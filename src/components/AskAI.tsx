@@ -1,5 +1,5 @@
 import { useEffect, useId, useRef, useState, type FormEvent } from "react";
-import { localAnswer } from "@/data/assistant";
+import { localAnswer, quickAnswer } from "@/data/assistant";
 
 type Message = { from: "bot" | "me"; text: string };
 
@@ -8,6 +8,15 @@ const endpoint = (import.meta.env.PUBLIC_ASK_ENDPOINT as string | undefined) ?? 
 
 /** Asks the live AI (/api/ask); falls back to offline answers if it's unavailable or out of quota. */
 async function ask(question: string, history: Message[]): Promise<string> {
+  // Simple questions already covered by the site are answered right here — no AI tokens used.
+  // Follow-ups (once a conversation is going) go to the AI so it can use the context.
+  const isFollowUp = history.some((m) => m.from === "me");
+  const quick = isFollowUp ? null : quickAnswer(question);
+  if (quick) {
+    await new Promise((r) => setTimeout(r, 350 + Math.random() * 300));
+    return quick;
+  }
+
   try {
     const res = await fetch(endpoint, {
       method: "POST",

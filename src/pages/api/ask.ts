@@ -33,6 +33,13 @@ function rateLimited(ip: string): boolean {
   return recent.length > PER_IP_PER_HOUR;
 }
 
+// Token saver: reuse answers to repeat questions (only fresh questions, not follow-ups).
+// Lives in the function's memory, so it's best-effort and clears on each redeploy.
+const CACHE_TTL = 12 * 3_600_000;
+const cache = new Map<string, { answer: string; at: number }>();
+const cacheKey = (q: string) =>
+  q.toLowerCase().replace(/[^\p{L}\p{N}\s]/gu, "").replace(/\s+/g, " ").trim();
+
 type Turn = { role: "user" | "assistant"; content: string };
 
 function json(body: unknown, status = 200) {
@@ -68,6 +75,10 @@ export const POST: APIRoute = async ({ request, clientAddress }) => {
         .map((t) => ({ role: t.role, content: t.content.slice(0, MAX_QUESTION) }))
     : [];
 
+  const key = history.length === 0 ? cacheKey(question) : "";
+  const cached = key ? cache.get(key) : undefined;
+  if (cached && Date.now() - cached.at < CACHE_TTL) return json({ answer: cached.answer });
+
   const messages = [{ role: "system", content: SYSTEM_PROMPT }, ...history, { role: "user", content: question }];
   // Groq retires models from time to time; if one is gone, try the next.
   const models = [...new Set([GROQ_MODEL, ...DEFAULT_MODELS].filter((m): m is string => !!m))];
@@ -101,6 +112,10 @@ export const POST: APIRoute = async ({ request, clientAddress }) => {
       if (!answer) {
         console.error(`Groq returned an empty answer (${model})`);
         continue;
+      }
+      if (key) {
+        if (cache.size > 500) cache.clear();
+        cache.set(key, { answer, at: Date.now() });
       }
       return json({ answer });
     } catch (err) {
