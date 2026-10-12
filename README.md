@@ -19,6 +19,7 @@ npm run preview
 | Projects + client work | `src/data/projects.ts` |
 | Bio, timeline, skills | `src/data/about.ts` |
 | Ask-my-AI offline answers | `src/data/assistant.ts` |
+| Extra things the AI should know | `src/data/ai-notes.md` |
 | Colours, fonts, shadows (design tokens) | `src/styles/global.css` |
 | Avatar | `public/avatar.webp` |
 
@@ -29,7 +30,8 @@ Everything else is static Astro, so it ships zero JS.
 
 The chat calls `/api/ask` (`src/pages/api/ask.ts`), a Vercel serverless function that sends the
 question plus a short profile built from `src/data/*` (`src/data/profile.ts`) to Groq's free
-`openai/gpt-oss-20b` model (falls back to `openai/gpt-oss-120b`). Edit your data files and the AI learns it automatically.
+`openai/gpt-oss-20b` model (falls back to `openai/gpt-oss-120b`). Edit your data files and the AI learns it automatically. For anything else (FAQs, working style,
+languages…), write it in `src/data/ai-notes.md`.
 
 Setup (free, no credit card):
 

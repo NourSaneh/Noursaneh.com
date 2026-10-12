@@ -1,6 +1,7 @@
 import { bio, skillGroups, timeline } from "./about";
 import { clientWork, projects } from "./projects";
 import { funFact, hobbies, site } from "./site";
+import notes from "./ai-notes.md?raw";
 
 /** Placeholder text like "[Add one AI feature here]" shouldn't reach the AI. */
 const clean = (s: string) => {
@@ -30,5 +31,17 @@ export function buildProfile(): string {
   ];
   const fact = clean(funFact.replace(/^Fun fact:\s*/, ""));
   if (fact) lines.push(`Fun fact: ${fact}`);
+
+  // Free-form notes from ai-notes.md (comments and [placeholder] lines removed).
+  const extra = notes
+    .replace(/<!--[\s\S]*?-->/g, "")
+    .split("\n")
+    .map((l) => l.trimEnd())
+    .filter((l) => l.trim() && !/\[[^\]]*\]/.test(l))
+    .join("\n")
+    .trim();
+  // Skip if only headings are left (all examples still unfilled).
+  if (extra.split("\n").some((l) => !l.startsWith("#"))) lines.push(`Extra notes from ${site.shortName}:\n${extra}`);
+
   return lines.join("\n");
 }
