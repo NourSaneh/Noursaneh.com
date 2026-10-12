@@ -35,6 +35,15 @@ export default function AskAI() {
   const [draft, setDraft] = useState("");
   const [thinking, setThinking] = useState(false);
   const logRef = useRef<HTMLDivElement>(null);
+  const inputRef = useRef<HTMLTextAreaElement>(null);
+
+  // Grow the box with the text so long questions stay fully visible.
+  useEffect(() => {
+    const el = inputRef.current;
+    if (!el) return;
+    el.style.height = "auto";
+    el.style.height = `${el.scrollHeight}px`;
+  }, [draft]);
 
   useEffect(() => {
     const el = logRef.current;
@@ -122,20 +131,28 @@ export default function AskAI() {
         <label htmlFor={inputId} className="sr-only">
           Your question
         </label>
-        <input
+        <textarea
+          ref={inputRef}
           id={inputId}
-          type="text"
+          rows={1}
           value={draft}
           onChange={(e) => setDraft(e.target.value)}
+          onKeyDown={(e) => {
+            // Enter sends, Shift+Enter adds a new line.
+            if (e.key === "Enter" && !e.shiftKey && !e.nativeEvent.isComposing) {
+              e.preventDefault();
+              void send(draft);
+            }
+          }}
           placeholder="Type a question…"
           autoComplete="off"
-          className="min-w-0 flex-1 bg-transparent p-2 text-sm outline-none"
+          className="max-h-32 min-w-0 flex-1 resize-none self-center bg-transparent p-2 text-sm leading-snug break-words outline-none"
         />
         <button
           type="submit"
           aria-label="Send question"
           disabled={thinking || !draft.trim()}
-          className="flex h-10 w-11 cursor-pointer items-center justify-center rounded-lg bg-ink text-white transition-opacity disabled:opacity-50"
+          className="flex h-10 w-11 shrink-0 self-end cursor-pointer items-center justify-center rounded-lg bg-ink text-white transition-opacity disabled:opacity-50"
         >
           <svg aria-hidden="true" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.6" strokeLinecap="round" strokeLinejoin="round">
             <path d="M5 12h14" />
