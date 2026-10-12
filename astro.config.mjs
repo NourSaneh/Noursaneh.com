@@ -7,7 +7,11 @@ import tailwindcss from "@tailwindcss/vite";
 export default defineConfig({
   site: "https://noursaneh.com",
   // Pages stay static; only /api/ask runs as a serverless function on Vercel.
-  adapter: vercel(),
+  adapter: vercel({
+    webAnalytics: {
+      enabled: true,
+    },
+  }),
   integrations: [react()],
   env: {
     schema: {
