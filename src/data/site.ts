@@ -1,3 +1,10 @@
+// Anti-spam: the email is stored as two reversed pieces and only joined at runtime,
+// so bots scanning the page source never see a plain address.
+// To change it, reverse each half: "name@example.com" → ["eman", "moc.elpmaxe"].
+const emailParts = ["43henasruon", "moc.liamg"];
+const reverse = (s: string) => [...s].reverse().join("");
+export const getEmail = () => `${reverse(emailParts[0])}@${reverse(emailParts[1])}`;
+
 export const site = {
   name: "Nour Saneh",
   shortName: "Nour",
@@ -5,7 +12,9 @@ export const site = {
   tagline: "Front-end developer building AI-powered web products people enjoy using.",
   location: "Sharjah, UAE",
   // TODO: replace placeholders with your real links
-  email: "noursaneh34@gmail.com",
+  get email() {
+    return getEmail();
+  },
   links: {
     linkedin: "https://www.linkedin.com/in/noursaneh",
     github: "https://github.com/NourSaneh",
