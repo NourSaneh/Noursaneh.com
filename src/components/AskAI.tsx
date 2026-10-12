@@ -4,25 +4,28 @@ import { localAnswer } from "@/data/assistant";
 type Message = { from: "bot" | "me"; text: string };
 
 const suggestions = ["What have you built?", "Your stack?", "Are you available?"];
-const endpoint = import.meta.env.PUBLIC_ASK_ENDPOINT as string | undefined;
+const endpoint = (import.meta.env.PUBLIC_ASK_ENDPOINT as string | undefined) ?? "/api/ask";
 
-async function ask(question: string): Promise<string> {
-  if (endpoint) {
-    try {
-      const res = await fetch(endpoint, {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ question }),
-      });
-      if (res.ok) {
-        const data = (await res.json()) as { answer?: string };
-        if (data.answer) return data.answer;
-      }
-    } catch {
-      /* fall through to the offline answer */
+/** Asks the live AI (/api/ask); falls back to offline answers if it's unavailable or out of quota. */
+async function ask(question: string, history: Message[]): Promise<string> {
+  try {
+    const res = await fetch(endpoint, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({
+        question,
+        // Skip the canned greeting; send recent turns so follow-ups make sense.
+        history: history.slice(1).map((m) => ({ role: m.from === "me" ? "user" : "assistant", content: m.text })),
+      }),
+    });
+    if (res.ok) {
+      const data = (await res.json()) as { answer?: string };
+      if (data.answer) return data.answer;
     }
+  } catch {
+    /* fall through to the offline answer */
   }
-  // Small delay so the reply feels conversational.
+  // Small delay so the offline reply feels conversational.
   await new Promise((r) => setTimeout(r, 450 + Math.random() * 400));
   return localAnswer(question);
 }
@@ -45,9 +48,10 @@ export default function AskAI() {
     const question = text.trim();
     if (!question || thinking) return;
     setDraft("");
+    const history = messages;
     setMessages((m) => [...m, { from: "me", text: question }]);
     setThinking(true);
-    const answer = await ask(question);
+    const answer = await ask(question, history);
     setMessages((m) => [...m, { from: "bot", text: answer }]);
     setThinking(false);
   }
