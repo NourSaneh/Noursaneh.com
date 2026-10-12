@@ -1,0 +1,67 @@
+---
+import { nav, site } from "@/data/site";
+---
+
+<header class="flex flex-wrap items-center justify-between gap-4 px-4 py-6 sm:px-12">
+  <a
+    href="#top"
+    class="rounded-xl border-[2.5px] border-ink bg-sun px-3.5 py-1 text-[26px] font-extrabold no-underline shadow-pop-sm transition-transform hover:-rotate-3"
+    >{site.shortName}</a
+  >
+
+  <nav
+    aria-label="Main"
+    class="order-last flex w-full justify-between gap-1 rounded-full border-[2.5px] border-ink bg-white p-1.5 text-base font-bold sm:order-none sm:w-auto sm:justify-start sm:gap-1.5 sm:text-[17px]"
+  >
+    {
+      nav.map((item, i) => (
+        <a
+          href={item.href}
+          data-nav={item.href}
+          aria-current={i === 0 ? "true" : undefined}
+          class="rounded-full px-3 py-2 no-underline transition-colors hover:bg-cream aria-[current]:bg-ink aria-[current]:text-cream sm:px-4.5"
+        >
+          {item.label}
+        </a>
+      ))
+    }
+  </nav>
+
+  <div class="flex items-center gap-4">
+    <a href={site.links.cv} class="flex min-h-11 items-center text-[17px] font-bold">CV</a>
+    <a href="#contact" class="btn-pop bg-cobalt px-6 py-3 text-[17px] text-white">Hire me</a>
+  </div>
+</header>
+
+<script>
+  // Highlight the nav pill for the section currently in view.
+  const links = [...document.querySelectorAll<HTMLAnchorElement>("[data-nav]")];
+  const sections = links
+    .map((a) => ({ href: a.dataset.nav!, el: document.getElementById(a.dataset.nav!.slice(1)) }))
+    .filter((s): s is { href: string; el: HTMLElement } => !!s.el)
+    // Document order, so nested sections (Skills inside About) win once reached.
+    .sort((a, b) => (a.el.compareDocumentPosition(b.el) & Node.DOCUMENT_POSITION_FOLLOWING ? -1 : 1));
+
+  let ticking = false;
+  function update() {
+    ticking = false;
+    const line = window.innerHeight * 0.4;
+    let current = "#top";
+    for (const { href, el } of sections) {
+      if (el.getBoundingClientRect().top <= line) current = href;
+    }
+    for (const a of links) {
+      if (a.dataset.nav === current) a.setAttribute("aria-current", "true");
+      else a.removeAttribute("aria-current");
+    }
+  }
+  window.addEventListener(
+    "scroll",
+    () => {
+      if (!ticking) requestAnimationFrame(update);
+      ticking = true;
+    },
+    { passive: true },
+  );
+  update();
+</script>

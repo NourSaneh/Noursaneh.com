@@ -1,0 +1,76 @@
+@import "tailwindcss";
+
+@theme {
+  --color-cream: #f6efe0;
+  --color-ink: #1b1b1b;
+  --color-sun: #e3b53a;
+  --color-cobalt: #2f4bd8;
+  --color-coral: #e86a4a;
+  --color-sky: #8fb8ff;
+  --color-blush: #f4a7c0;
+  --color-mint: #9fd7a8;
+  --color-live: #2e8b4e;
+
+  --font-display: "Bricolage Grotesque", ui-sans-serif, system-ui, sans-serif;
+  --font-mono: "DM Mono", ui-monospace, monospace;
+
+  --shadow-pop-xs: 3px 3px 0 var(--color-ink);
+  --shadow-pop-sm: 4px 4px 0 var(--color-ink);
+  --shadow-pop: 6px 6px 0 var(--color-ink);
+  --shadow-pop-lg: 8px 8px 0 var(--color-ink);
+
+  --breakpoint-hero: 52rem;
+}
+
+@layer base {
+  html {
+    scroll-behavior: smooth;
+  }
+  body {
+    @apply bg-cream font-display text-ink antialiased;
+  }
+  a {
+    @apply text-ink;
+  }
+  :focus-visible {
+    outline: 3px solid var(--color-cobalt);
+    outline-offset: 3px;
+  }
+  @media (prefers-reduced-motion: reduce) {
+    html {
+      scroll-behavior: auto;
+    }
+    *,
+    *::before,
+    *::after {
+      transition-duration: 0.01ms !important;
+      animation-duration: 0.01ms !important;
+    }
+  }
+}
+
+/* Chunky "neo-brutalist" button: hard shadow that presses in on hover. */
+@utility btn-pop {
+  @apply inline-flex items-center justify-center gap-2 rounded-xl border-[2.5px] border-ink font-extrabold no-underline shadow-pop-sm transition-[transform,box-shadow] duration-150;
+  &:hover {
+    transform: translate(2px, 2px);
+    box-shadow: 2px 2px 0 var(--color-ink);
+  }
+  &:active {
+    transform: translate(4px, 4px);
+    box-shadow: none;
+  }
+}
+
+/* Small tilted label used for section numbers and stickers. */
+@utility sticker {
+  @apply inline-block rounded-[10px] border-[2.5px] border-ink px-3 py-1.5 font-mono text-sm shadow-pop-xs;
+}
+
+@utility chip {
+  @apply rounded-full border-2 border-ink bg-white px-3 py-1.5 font-mono text-[13px];
+}
+
+@utility card {
+  @apply rounded-[20px] border-[3px] border-ink;
+}

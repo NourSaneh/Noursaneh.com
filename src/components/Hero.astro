@@ -1,0 +1,147 @@
+---
+import AskAI from "./AskAI";
+import Icon from "./Icon.astro";
+import { funFact, heroTags, hobbies, site } from "@/data/site";
+---
+
+<section id="hero" aria-label="Intro" class="relative flex min-h-[520px] flex-1 flex-col overflow-hidden hero:min-h-[640px]">
+  <h1
+    class="m-0 mt-2 px-4 text-center text-[clamp(52px,9vw,128px)] leading-none font-extrabold tracking-[-0.03em] [animation:rise_.6s_ease-out_both]"
+  >
+    Hi, I'm {site.shortName}.
+  </h1>
+  <p class="m-0 mt-4 px-4 text-center text-lg font-medium sm:text-xl [animation:rise_.6s_.1s_ease-out_both]">
+    I knew you'd been looking for me.
+  </p>
+
+  <!-- Avatar stage -->
+  <div class="relative mx-auto mt-auto h-[380px] w-full max-w-[820px] sm:h-[440px]">
+    <div
+      class="absolute -bottom-[100px] left-1/2 size-[380px] -translate-x-1/2 rounded-full border-[3px] border-ink bg-sun sm:-bottom-[120px] sm:size-[480px]"
+    >
+    </div>
+    <img
+      src="/avatar.webp"
+      alt={`3D avatar of ${site.name}`}
+      width="582"
+      height="863"
+      fetchpriority="high"
+      class="absolute bottom-0 left-1/2 h-[350px] w-auto -translate-x-1/2 drop-shadow-[6px_6px_0_rgba(27,27,27,0.18)] select-none sm:h-[420px] [animation:pop_.7s_.15s_cubic-bezier(.2,1.4,.4,1)_both]"
+      draggable="false"
+    />
+
+    <div
+      class="absolute bottom-2.5 left-1/2 -translate-x-1/2 -rotate-2 border-[3px] border-ink bg-cobalt px-4 py-2 text-lg font-extrabold whitespace-nowrap text-white shadow-pop sm:px-6.5 sm:py-2.5 sm:text-[28px]"
+    >
+      {site.role}
+    </div>
+
+    {
+      heroTags.map((t, i) => (
+        <span
+          class:list={[
+            "absolute rounded-[10px] border-[2.5px] border-ink px-2.5 py-1.5 font-mono text-xs shadow-pop-xs sm:px-3.5 sm:py-2 sm:text-[15px]",
+            "[animation:float_6s_ease-in-out_infinite]",
+            t.className,
+            t.far && "hidden hero:inline-block",
+          ]}
+          style={`animation-delay:${i * -1.1}s`}
+        >
+          {t.label}
+        </span>
+      ))
+    }
+  </div>
+
+  <!-- Off the clock -->
+  <aside
+    aria-label="Off the clock"
+    class="absolute top-[200px] left-10 hidden w-[250px] -rotate-[1.5deg] flex-col gap-2.5 rounded-2xl border-[2.5px] border-ink bg-white p-4 shadow-[5px_5px_0_var(--color-coral)] hero:flex max-[1100px]:left-4 max-[1100px]:w-[220px]"
+  >
+    <p class="m-0 text-lg font-extrabold">Off the clock</p>
+    {
+      hobbies.map((h) => (
+        <div class="flex items-center gap-2.5 text-[15px] font-semibold">
+          <span
+            aria-hidden="true"
+            class:list={["flex size-8 shrink-0 items-center justify-center rounded-lg border-2 border-ink", h.color]}
+          >
+            <Icon name={h.icon} />
+          </span>
+          {h.label}
+        </div>
+      ))
+    }
+    <p class="m-0 border-t-2 border-dashed border-ink pt-1 font-mono text-xs leading-normal">{funFact}</p>
+  </aside>
+
+  <div class="absolute bottom-10 left-12 hidden max-w-[260px] text-[17px] leading-[1.45] font-medium hero:block max-[1100px]:left-4 max-[1100px]:max-w-[200px]">
+    {site.tagline}
+  </div>
+  <div class="absolute right-12 bottom-10 hidden flex-col items-end gap-3 hero:flex max-[1100px]:right-4">
+    <a
+      href="#projects"
+      class="rounded-xl bg-ink px-6 py-3.5 text-lg font-extrabold text-cream! no-underline shadow-[4px_4px_0_var(--color-sun)] transition-transform hover:translate-x-1"
+      >See my projects →</a
+    >
+    <span class="font-mono text-sm">Now building: {site.nowBuilding.join(" · ")}</span>
+  </div>
+</section>
+
+<!-- Mobile summary -->
+<section
+  aria-label="Summary"
+  class="flex flex-col items-center gap-4 border-t-[3px] border-ink bg-white px-6 pt-8 pb-6 text-center hero:hidden"
+>
+  <p class="m-0 max-w-[360px] text-lg leading-[1.45] font-medium">{site.tagline}</p>
+  <a
+    href="#projects"
+    class="rounded-xl bg-ink px-6 py-3.5 text-lg font-extrabold text-cream! no-underline shadow-[4px_4px_0_var(--color-sun)]"
+    >See my projects →</a
+  >
+  <span class="font-mono text-sm">Now building: {site.nowBuilding.join(" · ")}</span>
+  <div class="flex flex-wrap justify-center gap-2 pt-2">
+    {
+      hobbies.map((h) => (
+        <span class:list={["rounded-full border-2 border-ink px-3 py-1.5 text-sm font-bold", h.color]}>{h.short}</span>
+      ))
+    }
+  </div>
+</section>
+
+<!--
+  One chat instance: flows under the summary on mobile,
+  floats on the right of the hero on desktop.
+-->
+<div
+  id="ask"
+  class="scroll-mt-6 bg-white px-4 pb-10 hero:absolute hero:top-[300px] hero:right-10 hero:w-[270px] hero:bg-transparent hero:p-0 max-[1100px]:hero:right-4 max-[1100px]:hero:w-[240px]"
+>
+  <div class="mx-auto max-w-[420px]">
+    <AskAI client:idle />
+  </div>
+</div>
+
+<style is:global>
+  @keyframes rise {
+    from {
+      opacity: 0;
+      transform: translateY(16px);
+    }
+  }
+  @keyframes pop {
+    from {
+      opacity: 0;
+      transform: translateY(40px) scale(0.92);
+    }
+  }
+  @keyframes float {
+    0%,
+    100% {
+      translate: 0 0;
+    }
+    50% {
+      translate: 0 -6px;
+    }
+  }
+</style>

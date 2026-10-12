@@ -1,0 +1,65 @@
+---
+import CopyEmail from "./CopyEmail";
+import Icon from "./Icon.astro";
+import { site } from "@/data/site";
+
+const links = [
+  { label: "LinkedIn", href: site.links.linkedin, external: true },
+  { label: "GitHub", href: site.links.github, external: true },
+  { label: "Book a 15-min call", href: site.links.book, external: true },
+];
+const footerNav = [
+  { label: "Projects", href: "#projects" },
+  { label: "About", href: "#about" },
+  { label: "Skills", href: "#skills" },
+  { label: "Ask my AI", href: "#ask" },
+];
+const year = new Date().getFullYear();
+---
+
+<footer id="contact" class="border-t-[3px] border-ink bg-sun">
+  <div class="mx-auto flex max-w-[1240px] flex-wrap items-end gap-12 px-4 pt-[88px] pb-16 sm:px-12">
+    <div class="flex min-w-0 flex-[999_1_560px] flex-col gap-5">
+      <span class="sticker -rotate-3 self-start bg-white">04 — Contact</span>
+      <h2 class="m-0 text-[clamp(56px,8vw,120px)] leading-[0.95] font-extrabold tracking-[-0.04em]">
+        Let's build<br />something.
+      </h2>
+      <p class="m-0 max-w-[520px] text-lg leading-normal sm:text-xl">
+        Open to front-end and AI engineering roles in the UAE or remote — and to fun freelance builds.
+      </p>
+      <CopyEmail client:visible email={site.email} />
+    </div>
+
+    <div class="flex min-w-0 flex-[1_1_300px] flex-col gap-3.5">
+      {
+        links.map((l) => (
+          <a
+            href={l.href}
+            target={l.external && l.href.startsWith("http") ? "_blank" : undefined}
+            rel={l.external && l.href.startsWith("http") ? "noopener" : undefined}
+            class="btn-pop justify-between! rounded-[14px] bg-white px-5 py-4 text-lg"
+          >
+            {l.label} <span aria-hidden="true">↗</span>
+          </a>
+        ))
+      }
+      <a href={site.links.cv} download class="btn-pop justify-between! rounded-[14px] bg-cobalt px-5 py-4 text-lg text-white!">
+        Download CV
+        <Icon name="download" size={18} />
+      </a>
+    </div>
+  </div>
+
+  <div class="bg-ink text-cream">
+    <div class="mx-auto flex max-w-[1240px] flex-wrap items-center justify-between gap-4 px-4 py-6 sm:px-12">
+      <a href="#top" class="rounded-[10px] border-2 border-cream bg-sun px-3 py-0.5 text-[22px] font-extrabold text-ink no-underline">
+        {site.shortName}
+      </a>
+      <nav aria-label="Footer" class="flex flex-wrap gap-6 text-base font-semibold">
+        {footerNav.map((l) => <a href={l.href} class="text-cream! no-underline hover:underline">{l.label}</a>)}
+      </nav>
+      <p class="m-0 font-mono text-[13px]">Designed &amp; built by {site.name} · {site.location} · {year}</p>
+      <a href="#top" class="flex min-h-11 items-center text-[15px] font-bold text-cream!">Back to top ↑</a>
+    </div>
+  </div>
+</footer>

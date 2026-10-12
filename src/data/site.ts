@@ -1,0 +1,41 @@
+export const site = {
+  name: "Nour Saneh",
+  shortName: "Nour",
+  role: "Creative AI Software Engineer",
+  tagline: "Front-end developer building AI-powered web products people enjoy using.",
+  location: "Sharjah, UAE",
+  // TODO: replace placeholders with your real links
+  email: "hello@noursaneh.com",
+  links: {
+    linkedin: "https://www.linkedin.com/in/noursaneh",
+    github: "https://github.com/NourSaneh",
+    book: "#contact",
+    cv: "/cv.pdf",
+  },
+  nowBuilding: ["TakeMeWhere", "MomentoSite"],
+};
+
+export const nav = [
+  { label: "Home", href: "#top" },
+  { label: "Projects", href: "#projects" },
+  { label: "Skills", href: "#skills" },
+  { label: "About", href: "#about" },
+];
+
+export const hobbies = [
+  { label: "Shredding on electric guitar", short: "Guitar", color: "bg-sun", icon: "music" },
+  { label: "Pokémon GO PvP — Master League", short: "Pokémon GO PvP", color: "bg-sky", icon: "gamepad" },
+  { label: "Learning Russian — привет!", short: "Learning Russian", color: "bg-blush", icon: "chat" },
+  { label: "Hunting hidden food spots in Dubai", short: "Food hunting", color: "bg-mint", icon: "food" },
+] as const;
+
+export const funFact = "Fun fact: [one surprising thing about you]";
+
+export const heroTags = [
+  { label: "LLM APIs", className: "left-[12%] top-[6%] -rotate-8 bg-white" },
+  { label: "Front-End", className: "left-[6%] top-[40%] rotate-5 bg-coral" },
+  { label: "TypeScript", className: "left-0 top-[72%] -rotate-4 bg-white", far: true },
+  { label: "React · Next.js", className: "right-[12%] top-[6%] rotate-7 bg-white" },
+  { label: "Automation", className: "right-[5%] top-[40%] -rotate-6 bg-sun" },
+  { label: "Supabase", className: "right-0 top-[72%] rotate-4 bg-white", far: true },
+];
