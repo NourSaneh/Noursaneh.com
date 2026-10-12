@@ -9,6 +9,8 @@ export const prerender = false;
 const MAX_QUESTION = 400;
 const MAX_HISTORY = 6;
 const PER_IP_PER_HOUR = 15;
+// Free-tier models, tried in order. Check https://console.groq.com/docs/models if these get retired.
+const DEFAULT_MODELS = ["openai/gpt-oss-20b", "openai/gpt-oss-120b"];
 
 const SYSTEM_PROMPT = `You are the assistant on ${site.name}'s portfolio website. Visitors are mostly recruiters, clients and fellow developers.
 Answer questions about ${site.shortName} using ONLY the profile below. Speak about ${site.shortName} in the third person.
@@ -66,31 +68,45 @@ export const POST: APIRoute = async ({ request, clientAddress }) => {
         .map((t) => ({ role: t.role, content: t.content.slice(0, MAX_QUESTION) }))
     : [];
 
-  try {
-    const res = await fetch("https://api.groq.com/openai/v1/chat/completions", {
-      method: "POST",
-      headers: { Authorization: `Bearer ${GROQ_API_KEY}`, "Content-Type": "application/json" },
-      body: JSON.stringify({
-        model: GROQ_MODEL || "llama-3.1-8b-instant",
-        temperature: 0.5,
-        max_tokens: 220,
-        messages: [{ role: "system", content: SYSTEM_PROMPT }, ...history, { role: "user", content: question }],
-      }),
-      signal: AbortSignal.timeout(12_000),
-    });
+  const messages = [{ role: "system", content: SYSTEM_PROMPT }, ...history, { role: "user", content: question }];
+  // Groq retires models from time to time; if one is gone, try the next.
+  const models = [...new Set([GROQ_MODEL, ...DEFAULT_MODELS].filter((m): m is string => !!m))];
 
-    if (!res.ok) {
-      console.error("Groq error", res.status, await res.text().catch(() => ""));
-      // 429 here means the free daily quota is used up; the widget falls back to offline answers.
-      return json({ error: res.status === 429 ? "quota" : "upstream" }, 502);
+  for (const model of models) {
+    try {
+      const res = await fetch("https://api.groq.com/openai/v1/chat/completions", {
+        method: "POST",
+        headers: { Authorization: `Bearer ${GROQ_API_KEY}`, "Content-Type": "application/json" },
+        body: JSON.stringify({
+          model,
+          temperature: 0.5,
+          // Reasoning models count their thinking against this budget, so keep it roomy.
+          max_completion_tokens: 700,
+          ...(model.startsWith("openai/gpt-oss") && { reasoning_effort: "low" }),
+          messages,
+        }),
+        signal: AbortSignal.timeout(12_000),
+      });
+
+      if (!res.ok) {
+        const detail = await res.text().catch(() => "");
+        console.error(`Groq error ${res.status} (${model})`, detail);
+        if (res.status === 404 || detail.includes("model_not_found") || detail.includes("decommissioned")) continue;
+        // 429 here means the free daily quota is used up; the widget falls back to offline answers.
+        return json({ error: res.status === 429 ? "quota" : "upstream" }, 502);
+      }
+
+      const data = (await res.json()) as { choices?: { message?: { content?: string } }[] };
+      const answer = data.choices?.[0]?.message?.content?.trim();
+      if (!answer) {
+        console.error(`Groq returned an empty answer (${model})`);
+        continue;
+      }
+      return json({ answer });
+    } catch (err) {
+      console.error(`Groq request failed (${model})`, err);
+      return json({ error: "upstream" }, 502);
     }
-
-    const data = (await res.json()) as { choices?: { message?: { content?: string } }[] };
-    const answer = data.choices?.[0]?.message?.content?.trim();
-    if (!answer) return json({ error: "empty_answer" }, 502);
-    return json({ answer });
-  } catch (err) {
-    console.error("Groq request failed", err);
-    return json({ error: "upstream" }, 502);
   }
+  return json({ error: "upstream" }, 502);
 };

@@ -29,7 +29,7 @@ Everything else is static Astro, so it ships zero JS.
 
 The chat calls `/api/ask` (`src/pages/api/ask.ts`), a Vercel serverless function that sends the
 question plus a short profile built from `src/data/*` (`src/data/profile.ts`) to Groq's free
-`llama-3.1-8b-instant` model. Edit your data files and the AI learns it automatically.
+`openai/gpt-oss-20b` model (falls back to `openai/gpt-oss-120b`). Edit your data files and the AI learns it automatically.
 
 Setup (free, no credit card):
 
