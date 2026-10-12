@@ -5,7 +5,7 @@ export const site = {
   tagline: "Front-end developer building AI-powered web products people enjoy using.",
   location: "Sharjah, UAE",
   // TODO: replace placeholders with your real links
-  email: "hello@noursaneh.com",
+  email: "noursaneh34@gmail.com",
   links: {
     linkedin: "https://www.linkedin.com/in/noursaneh",
     github: "https://github.com/NourSaneh",
