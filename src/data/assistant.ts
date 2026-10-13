@@ -23,7 +23,7 @@ const intents: Intent[] = [
   {
     keywords: ["built", "build", "projects", "project", "work", "portfolio", "made", "shipped"],
     answer: () =>
-      `Nour has built ${list(projects.map((p) => p.title))}. The flagship is TakeMeWhere — ${projects[0].summary.charAt(0).toLowerCase()}${projects[0].summary.slice(1)}`,
+      `Nour has built ${list(projects.filter((p) => !p.teaser).map((p) => p.title))}. The flagship is TakeMeWhere — ${projects[0].summary.charAt(0).toLowerCase()}${projects[0].summary.slice(1)}`,
   },
   {
     keywords: ["stack", "tech", "tools", "skills", "languages", "framework"],
@@ -35,9 +35,8 @@ const intents: Intent[] = [
       `TakeMeWhere is a UAE-wide place discovery platform with a custom 3-gem rating system, built on React, TypeScript and a Supabase backend with 9 tables and row-level security.`,
   },
   {
-    keywords: ["momento", "momentosite", "event", "wedding"],
-    answer: () =>
-      `MomentoSite is a drag-and-drop builder for temporary event websites — weddings, launches, birthdays. It's built with React, TypeScript, Firebase and Zustand, and it's in progress.`,
+    keywords: ["next", "secret", "upcoming", "soon", "new", "momento", "momentosite"],
+    answer: () => `Nour has a new project in the works, but it's still under wraps 🤫 Check back soon — or follow along on GitHub.`,
   },
   {
     keywords: ["baitna", "cafe", "café", "rooftop", "keystatic"],

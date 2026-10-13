@@ -19,7 +19,9 @@ export function buildProfile(): string {
     `Availability: open to front-end and AI engineering roles in the UAE or remote, and to freelance builds.`,
     `Experience: ${timeline.map((t) => `${clean(t.title)} — ${clean(t.where)}${clean(t.when) ? ` (${clean(t.when)})` : ""}`).join("; ")}.`,
     `Projects:`,
-    ...projects.map(
+    ...projects
+      .filter((p) => !p.teaser)
+      .map(
       (p) =>
         `- ${p.title}${p.badge ? ` [${p.badge.label}]` : ""}: ${clean(p.summary)} Stack: ${cleanList(p.stack)}.` +
         (p.highlights ? ` Highlights: ${p.highlights.map(clean).filter(Boolean).join("; ")}.` : "") +
@@ -29,6 +31,8 @@ export function buildProfile(): string {
     `Skills: ${skillGroups.map((g) => `${g.title}: ${g.items.join(", ")}`).join(" | ")} (★ = currently learning).`,
     `Hobbies: ${hobbies.map((h) => h.label).join("; ")}.`,
   ];
+  if (projects.some((p) => p.teaser))
+    lines.push(`Upcoming: a new project is in progress but secret — don't guess what it is; say it's coming soon.`);
   const fact = clean(funFact.replace(/^Fun fact:\s*/, ""));
   if (fact) lines.push(`Fun fact: ${fact}`);
 

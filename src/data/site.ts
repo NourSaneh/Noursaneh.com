@@ -21,7 +21,7 @@ export const site = {
     github: "https://github.com/NourSaneh",
     cv: "/Nour-Saneh-CV.pdf",
   },
-  nowBuilding: ["TakeMeWhere", "MomentoSite"],
+  nowBuilding: ["TakeMeWhere", "something secret 🤫"],
 };
 
 export const nav = [

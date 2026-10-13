@@ -126,6 +126,57 @@ function Card({ p }: { p: Project }) {
   );
 }
 
+/** "Coming soon" card with a click-to-reveal spoiler, for a project that isn't public yet. */
+function TeaserCard({ p }: { p: Project }) {
+  const [revealed, setRevealed] = useState(false);
+  return (
+    <article className="card flex min-w-0 flex-[1_1_320px] flex-col overflow-hidden border-dashed bg-white shadow-pop">
+      <div
+        className={`relative flex h-[200px] items-center justify-center overflow-hidden border-b-[3px] border-dashed border-ink ${p.media.color}`}
+        style={{
+          backgroundImage:
+            "repeating-linear-gradient(-45deg, transparent 0 18px, rgba(27,27,27,.08) 18px 36px)",
+        }}
+      >
+        <span
+          aria-hidden="true"
+          className="flex size-24 -rotate-6 items-center justify-center rounded-full border-[3px] border-ink bg-white text-5xl font-extrabold shadow-pop [animation:float_5s_ease-in-out_infinite]"
+        >
+          ?
+        </span>
+        <span className="absolute bottom-3.5 left-3.5 -rotate-3 rounded-md border-2 border-ink bg-ink px-2.5 py-1 font-mono text-[11px] tracking-widest text-cream">
+          TOP SECRET
+        </span>
+        {p.badge && (
+          <span className="absolute top-3.5 right-3.5">
+            <Badge badge={p.badge} />
+          </span>
+        )}
+      </div>
+      <div className="flex flex-1 flex-col gap-3 p-6">
+        <h3 className="m-0 text-[28px] font-extrabold">{p.title}</h3>
+        <button
+          type="button"
+          onClick={() => setRevealed((r) => !r)}
+          aria-expanded={revealed}
+          className="flex flex-1 cursor-pointer flex-col justify-start text-left text-base leading-normal"
+        >
+          {revealed ? (
+            <span>{p.summary}</span>
+          ) : (
+            <span className="flex flex-col gap-2 pt-1" aria-label="Spoiler — click to reveal">
+              <span className="block h-4 w-full rounded bg-ink" />
+              <span className="block h-4 w-4/5 rounded bg-ink" />
+              <span className="block h-4 w-3/5 rounded bg-ink" />
+            </span>
+          )}
+        </button>
+        <p className="m-0 font-mono text-[13px]">{revealed ? "Stay tuned 👀" : "Spoiler — click to reveal"}</p>
+      </div>
+    </article>
+  );
+}
+
 function ClientWork() {
   return (
     <div className="card flex flex-wrap items-center justify-between gap-6 bg-sun px-6 py-7 shadow-pop sm:px-8">
@@ -192,7 +243,7 @@ export default function Projects() {
       {rest.length > 0 && (
         <div className="flex flex-wrap gap-7">
           {rest.map((p) => (
-            <Card key={p.slug} p={p} />
+            p.teaser ? <TeaserCard key={p.slug} p={p} /> : <Card key={p.slug} p={p} />
           ))}
         </div>
       )}

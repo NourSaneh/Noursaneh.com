@@ -13,6 +13,8 @@ export interface Project {
   badge?: { label: string; className: string };
   media: { color: string; placeholder: string; domain?: string; image?: string };
   featured?: boolean;
+  /** Mystery "coming soon" card: details hidden, not sent to the AI. */
+  teaser?: boolean;
   dark?: boolean;
 }
 
@@ -44,14 +46,16 @@ export const projects: Project[] = [
     media: { color: "bg-sky", placeholder: "[Screenshot or screen recording of TakeMeWhere]", domain: "takemewhere.com" },
   },
   {
-    slug: "momentosite",
-    title: "MomentoSite",
-    summary: "A drag-and-drop builder for temporary event websites — weddings, launches, birthdays — live in minutes.",
-    categories: ["web"],
-    stack: ["React", "TypeScript", "Firebase", "Zustand"],
-    caseStudy: "#case-momentosite",
-    badge: { label: "In progress", className: "bg-sun rotate-4" },
-    media: { color: "bg-blush", placeholder: "[MomentoSite editor screenshot]" },
+    // Teaser card: a "coming soon" placeholder with no details or links.
+    // When the project is ready, replace this entry with a normal one (delete `teaser: true`).
+    slug: "next-project",
+    title: "Next project",
+    teaser: true,
+    summary: "Something new is cooking. Ask my AI if you're curious — or check back soon.",
+    categories: ["web", "ai"],
+    stack: [],
+    badge: { label: "Coming soon", className: "bg-sun rotate-4" },
+    media: { color: "bg-blush", placeholder: "" },
   },
   {
     slug: "baitna-cafe",
