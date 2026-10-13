@@ -40,10 +40,8 @@ export const projects: Project[] = [
     categories: ["web", "ai"],
     stack: ["React", "TypeScript", "Vite", "Tailwind v4", "Supabase", "Cloudinary", "Vercel"],
     url: "https://takemewhere.com",
-    caseStudy: "#case-takemewhere",
-    code: "#code-takemewhere",
     badge: { label: "Featured", className: "bg-coral -rotate-3" },
-    media: { color: "bg-sky", placeholder: "[Screenshot or screen recording of TakeMeWhere]", domain: "takemewhere.com" },
+    media: { color: "bg-sky", placeholder: "TakeMeWhere homepage", domain: "takemewhere.com", image: "/projects/takemewhere.webp" },
   },
   {
     // Teaser card: a "coming soon" placeholder with no details or links.
