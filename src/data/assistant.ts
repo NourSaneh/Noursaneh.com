@@ -40,6 +40,11 @@ const intents: Intent[] = [
       `MomentoSite is a drag-and-drop builder for temporary event websites — weddings, launches, birthdays. It's built with React, TypeScript, Firebase and Zustand, and it's in progress.`,
   },
   {
+    keywords: ["baitna", "cafe", "café", "rooftop", "keystatic"],
+    answer: () =>
+      `Baitna Cafe is a website concept Nour built for a rooftop café in Sharjah — table booking, delivery, events and the menu in one place, plus a no-code editor for staff. Built with Astro, Tailwind and Keystatic. Live demo: baitna-cafe-pied.vercel.app`,
+  },
+  {
     keywords: ["ai", "llm", "rag", "gpt", "claude", "prompt", "machine"],
     answer: () =>
       `Nour works with LLM APIs, prompt design and Make.com automation, and is learning RAG / embeddings right now. This chat is one of those experiments!`,

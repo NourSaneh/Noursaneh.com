@@ -103,9 +103,24 @@ function Card({ p }: { p: Project }) {
         <h3 className="m-0 text-[28px] font-extrabold">{p.title}</h3>
         <p className="m-0 flex-1 text-base leading-normal">{p.summary}</p>
         <p className="m-0 font-mono text-[13px]">{p.stack.join(" · ")}</p>
-        <a href={p.caseStudy ?? p.url ?? "#"} className={`text-base font-extrabold ${dark ? "text-cream!" : ""}`}>
-          {dark ? "Try it →" : "View project →"}
-        </a>
+        {p.url || p.code ? (
+          <div className="flex flex-wrap gap-x-5 gap-y-1">
+            {p.url && (
+              <a href={p.url} target="_blank" rel="noopener" className="text-base font-extrabold">
+                Live site ↗
+              </a>
+            )}
+            {p.code && (
+              <a href={p.code} target="_blank" rel="noopener" className="text-base font-extrabold">
+                Code ↗
+              </a>
+            )}
+          </div>
+        ) : (
+          <a href={p.caseStudy ?? "#"} className={`text-base font-extrabold ${dark ? "text-cream!" : ""}`}>
+            {dark ? "Try it →" : "View project →"}
+          </a>
+        )}
       </div>
     </article>
   );

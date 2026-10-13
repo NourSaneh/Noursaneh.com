@@ -54,14 +54,16 @@ export const projects: Project[] = [
     media: { color: "bg-blush", placeholder: "[MomentoSite editor screenshot]" },
   },
   {
-    slug: "driving-quiz",
-    title: "Driving Theory Quiz",
-    summary: "Practice driving-theory questions with instant feedback and progress tracking. [Adjust to final features]",
+    slug: "baitna-cafe",
+    title: "Baitna Cafe",
+    summary:
+      "A fast, mobile-first website concept for a rooftop café in Sharjah — book a table, order delivery, see events and the menu in one place, with a no-code editor so staff can update it themselves.",
     categories: ["web"],
-    stack: ["JavaScript", "React"],
-    caseStudy: "#case-quiz",
-    badge: { label: "Building", className: "bg-white -rotate-4" },
-    media: { color: "bg-mint", placeholder: "[Driving quiz screenshot]" },
+    stack: ["Astro", "Tailwind v4", "Keystatic", "Vercel"],
+    url: "https://baitna-cafe-pied.vercel.app",
+    code: "https://github.com/NourSaneh/BaitnaCafe",
+    badge: { label: "Concept", className: "bg-white -rotate-4" },
+    media: { color: "bg-mint", placeholder: "Baitna Cafe homepage", image: "/projects/baitna-cafe.webp" },
   },
   {
     slug: "ask-my-ai",
