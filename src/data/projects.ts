@@ -35,7 +35,7 @@ export const projects: Project[] = [
     highlights: [
       "Full Supabase backend: 9 tables, row-level security, auth triggers",
       "Custom 3-gem rating system",
-      "[Add one AI feature here — e.g. smart place recommendations]",
+      "[smart place recommendations]",
     ],
     categories: ["web", "ai"],
     stack: ["React", "TypeScript", "Vite", "Tailwind v4", "Supabase", "Cloudinary", "Vercel"],

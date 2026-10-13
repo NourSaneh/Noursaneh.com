@@ -32,13 +32,13 @@ export const nav = [
 ];
 
 export const hobbies = [
-  { label: "Shredding on electric guitar", short: "Guitar", color: "bg-sun", icon: "music" },
-  { label: "Pokémon GO PvP — Master League", short: "Pokémon GO PvP", color: "bg-sky", icon: "gamepad" },
-  { label: "Learning Russian — привет!", short: "Learning Russian", color: "bg-blush", icon: "chat" },
+  { label: "Learning electric guitar, badly but loudly", short: "Guitar", color: "bg-sun", icon: "music" },
+  { label: "Always Down to do Any type Of Sport!", short: "Sports", color: "bg-sky", icon: "ball" },
+  { label: "Learning Russian  & Korean — привет!", short: "Learning Russian", color: "bg-blush", icon: "chat" },
   { label: "Hunting hidden food spots in Dubai", short: "Food hunting", color: "bg-mint", icon: "food" },
 ] as const;
 
-export const funFact = "Fun fact: [one surprising thing about you]";
+export const funFact = "Fun fact: my notes app is 90% half-baked ideas I want to build.";
 
 export const heroTags = [
   { label: "LLM APIs", className: "left-[12%] top-[6%] -rotate-8 bg-white" },
