@@ -6,7 +6,6 @@ import { site } from "@/data/site";
 const links = [
   { label: "LinkedIn", href: site.links.linkedin, external: true },
   { label: "GitHub", href: site.links.github, external: true },
-  { label: "Book a 15-min call", href: site.links.book, external: true },
 ];
 const footerNav = [
   { label: "Projects", href: "#projects" },
@@ -43,7 +42,11 @@ const year = new Date().getFullYear();
           </a>
         ))
       }
-      <a href={site.links.cv} download class="btn-pop justify-between! rounded-[14px] bg-cobalt px-5 py-4 text-lg text-white!">
+      <!-- href is filled in by the script below so the address isn't in the page source -->
+      <a href="#contact" data-mailto class="btn-pop justify-between! rounded-[14px] bg-white px-5 py-4 text-lg">
+        Email me <span aria-hidden="true">✉</span>
+      </a>
+      <a href={site.links.cv} download="Nour-Saneh-CV.pdf" class="btn-pop justify-between! rounded-[14px] bg-cobalt px-5 py-4 text-lg text-white!">
         Download CV
         <Icon name="download" size={18} />
       </a>
@@ -63,3 +66,10 @@ const year = new Date().getFullYear();
     </div>
   </div>
 </footer>
+
+<script>
+  import { getEmail } from "@/data/site";
+  for (const a of document.querySelectorAll<HTMLAnchorElement>("[data-mailto]")) {
+    a.href = `mailto:${getEmail()}`;
+  }
+</script>

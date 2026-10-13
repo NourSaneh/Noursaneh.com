@@ -18,8 +18,7 @@ export const site = {
   links: {
     linkedin: "https://www.linkedin.com/in/noursaneh",
     github: "https://github.com/NourSaneh",
-    book: "#contact",
-    cv: "/cv.pdf",
+    cv: "/Nour-Saneh-CV.pdf",
   },
   nowBuilding: ["TakeMeWhere", "MomentoSite"],
 };

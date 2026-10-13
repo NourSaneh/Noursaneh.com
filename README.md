@@ -55,6 +55,5 @@ Token savers:
 ## TODO before launch
 
 - Replace the `[placeholders]` (fun fact, BrandXB dates, project screenshots, client logos).
-- Set the real email, LinkedIn, booking link in `src/data/site.ts`.
-- Add `public/cv.pdf`.
+- Check the LinkedIn / GitHub links in `src/data/site.ts`.
 - Add screenshots via `media.image` in `src/data/projects.ts`.
