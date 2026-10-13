@@ -18,8 +18,8 @@
 - Full name: Nour Saneh.
 - Lives in the UAE (Sharjah).
 - Graduated with a Computer Science degree in Lebanon, from Lebanese International University.
-- [Languages you speak, e.g. "Languages: Arabic, English, learning Russian."]
-- [Where you'd like to work, e.g. "Prefers remote or on-site roles in Dubai/Sharjah."]
+- [Languages you speak, e.g. "Languages: Arabic, English, french , learning Russian."]
+- [Where you'd like to work, e.g. "Prefers remote or on site roles in Dubai/Sharjah."]
 
 ## Things people often ask
 - [Start date, e.g. "Available to start immediately."]

@@ -134,10 +134,17 @@ function ClientWork() {
         <p className="m-0 text-[26px] leading-tight font-extrabold">{clientWork.title}</p>
       </div>
       <div className="flex flex-wrap gap-2.5">
-        {clientWork.logos.map((logo, i) => (
-          <span key={i} className="rounded-[10px] border-2 border-ink bg-white px-4.5 py-3.5 text-sm font-bold">
-            {logo}
-          </span>
+        {clientWork.logos.map((logo) => (
+          <a
+            key={logo.name}
+            href={logo.url}
+            target="_blank"
+            rel="noopener noreferrer"
+            title={logo.name}
+            className="flex h-16 items-center rounded-[10px] border-2 border-ink bg-white px-4.5 text-sm font-bold text-ink no-underline transition-transform hover:-translate-y-0.5"
+          >
+            {logo.src ? <img src={logo.src} alt={logo.name} className="h-12 w-auto" loading="lazy" /> : logo.name}
+          </a>
         ))}
       </div>
     </div>

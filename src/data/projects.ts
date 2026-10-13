@@ -82,5 +82,10 @@ export const projects: Project[] = [
 export const clientWork = {
   label: "Client work · BrandXB, Dubai",
   title: "WordPress & WooCommerce sites, Make.com automations and technical SEO for F&B brands.",
-  logos: ["[Client logo]", "[Client logo]", "[Client logo]"],
+  // `src` is optional — clients without a logo file show their name instead.
+  logos: [
+    { name: "Carrot Sun", url: "https://www.carrotsunoil.com/", src: "/logos/carrot-sun.jpg" },
+    { name: "Maamouly", url: "https://maamouly.com/", src: "/logos/maamouly.png" },
+    { name: "Artisanal Pi", url: "https://artisanalpi.com/", src: "/logos/artisanal-pi.webp" },
+  ] as { name: string; url: string; src?: string }[],
 };
