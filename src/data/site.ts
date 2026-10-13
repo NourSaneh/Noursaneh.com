@@ -11,6 +11,7 @@ export const site = {
   role: "Creative AI Software Engineer",
   tagline: "Front-end developer building AI-powered web products people enjoy using.",
   location: "Sharjah, UAE",
+  country: "United Arab Emirates",
   // TODO: replace placeholders with your real links
   get email() {
     return getEmail();
