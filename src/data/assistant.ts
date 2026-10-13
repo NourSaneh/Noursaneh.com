@@ -23,7 +23,7 @@ const intents: Intent[] = [
   {
     keywords: ["built", "build", "projects", "project", "work", "portfolio", "made", "shipped"],
     answer: () =>
-      `Nour has built ${list(projects.filter((p) => !p.teaser).map((p) => p.title))}. The flagship is TakeMeWhere — ${projects[0].summary.charAt(0).toLowerCase()}${projects[0].summary.slice(1)}`,
+      `Nour has built ${list(projects.filter((p) => !p.teaser).map((p) => p.title))}. The flagship is TakeMeWhere — ${projects[0].summary.charAt(0).toLowerCase()}${projects[0].summary.slice(1)} More projects and code on GitHub: ${site.links.github.replace(/^https?:\/\//, "")}`,
   },
   {
     keywords: ["stack", "tech", "tools", "skills", "languages", "framework"],
@@ -55,7 +55,7 @@ const intents: Intent[] = [
   },
   {
     keywords: ["contact", "email", "reach", "linkedin", "call", "talk"],
-    answer: () => `Best way is email: ${site.email}. You can also find Nour on LinkedIn and GitHub — links are at the bottom of the page.`,
+    answer: () => `Best way is email: ${site.email}. You can also find Nour on GitHub (${site.links.github.replace(/^https?:\/\//, "")}) and LinkedIn.`,
   },
   {
     keywords: ["where", "location", "based", "live", "uae", "dubai", "sharjah"],

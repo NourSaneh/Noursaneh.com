@@ -14,6 +14,7 @@ const cleanList = (items: string[]) => items.map(clean).filter(Boolean).join(", 
 export function buildProfile(): string {
   const lines = [
     `Name: ${site.name}. Role: ${site.role}. Based in ${site.location}. Email: ${site.email}.`,
+    `GitHub (all code and more projects): ${site.links.github}. LinkedIn: ${site.links.linkedin}.`,
     `Summary: ${site.tagline}`,
     `Bio: ${bio.join(" ")}`,
     `Availability: open to front-end and AI engineering roles in the UAE or remote, and to freelance builds.`,
@@ -25,7 +26,8 @@ export function buildProfile(): string {
       (p) =>
         `- ${p.title}${p.badge ? ` [${p.badge.label}]` : ""}: ${clean(p.summary)} Stack: ${cleanList(p.stack)}.` +
         (p.highlights ? ` Highlights: ${p.highlights.map(clean).filter(Boolean).join("; ")}.` : "") +
-        (p.url ? ` Live: ${p.url}` : ""),
+        (p.url ? ` Live: ${p.url}` : "") +
+        (p.code ? ` Code: ${p.code}` : ""),
     ),
     `Client work: ${clientWork.title}`,
     `Skills: ${skillGroups.map((g) => `${g.title}: ${g.items.join(", ")}`).join(" | ")} (★ = currently learning).`,
