@@ -5,7 +5,8 @@ import vercel from "@astrojs/vercel";
 import tailwindcss from "@tailwindcss/vite";
 
 export default defineConfig({
-  site: "https://noursaneh.com",
+  // Primary domain (noursaneh.com redirects here in Vercel). Keep in sync with public/robots.txt and sitemap.xml.
+  site: "https://www.noursaneh.com",
   // Pages stay static; only /api/ask runs as a serverless function on Vercel.
   adapter: vercel(),
   integrations: [react()],
