@@ -26,7 +26,7 @@ export const site = {
   // Tracking stays off while websiteId is empty.
   analytics: {
     umamiScript: "https://stats.noursaneh.com/script.js",
-    websiteId: "",
+    websiteId: "32ffd991-ae25-4d37-a84f-7bb1af792cfd",
   },
 };
 
