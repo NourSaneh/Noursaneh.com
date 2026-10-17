@@ -10,6 +10,9 @@ export default defineConfig({
   // Pages are pre-rendered; only /api/ask runs on the server.
   // Built as a standalone Node server for Coolify: `node dist/server/entry.mjs`.
   adapter: node({ mode: "standalone" }),
+  // Listen on all interfaces so Coolify's proxy can reach the container
+  // (default would be localhost-only). PORT / HOST env vars still override.
+  server: { host: true, port: 4321 },
   integrations: [react()],
   env: {
     schema: {
