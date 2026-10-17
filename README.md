@@ -57,8 +57,7 @@ Token savers:
   Detailed or ambiguous questions, and follow-ups, still go to the AI.
 - The server remembers answers to repeat questions for 12 hours and reuses them.
 
-## TODO before launch
+## Still to do
 
-- Replace the `[placeholders]` (fun fact, BrandXB dates, project screenshots, client logos).
-- Check the LinkedIn / GitHub links in `src/data/site.ts`.
-- Add screenshots via `media.image` in `src/data/projects.ts`.
+- Fill in the remaining `[bracketed]` examples in `src/data/ai-notes.md` (they're skipped until replaced).
+- After each deploy: submit `sitemap.xml` in Google Search Console and check the Rich Results Test.
