@@ -5,6 +5,7 @@ import "@fontsource/dm-mono/500.css";
 import "@/styles/global.css";
 import { site } from "@/data/site";
 import { projects } from "@/data/projects";
+import { faq } from "@/data/faq";
 
 interface Props {
   title?: string;
@@ -99,6 +100,17 @@ const structuredData = {
             ...(p.code && { codeRepository: p.code }),
           },
         })),
+    },
+    {
+      // Mirrors the visible "Quick answers" section (schema must match on-page text).
+      "@type": "FAQPage",
+      "@id": `${canonical.href}#faq`,
+      isPartOf: { "@id": `${canonical.href}#webpage` },
+      mainEntity: faq.map((f) => ({
+        "@type": "Question",
+        name: f.q,
+        acceptedAnswer: { "@type": "Answer", text: f.a },
+      })),
     },
   ],
 };
