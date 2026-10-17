@@ -147,6 +147,19 @@ const structuredData = {
     <script type="application/ld+json" set:html={JSON.stringify(structuredData)} />
 
     <link rel="preload" as="image" href="/avatar.webp" fetchpriority="high" />
+    {
+      // Privacy-friendly visitor stats (no cookies). Only counts the real domains,
+      // not localhost or Coolify's sslip.io test address.
+      site.analytics.websiteId && (
+        <script
+          is:inline
+          defer
+          src={site.analytics.umamiScript}
+          data-website-id={site.analytics.websiteId}
+          data-domains="www.noursaneh.com,noursaneh.com"
+        />
+      )
+    }
   </head>
   <body id="top">
     <a

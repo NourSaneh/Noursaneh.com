@@ -22,6 +22,12 @@ export const site = {
     cv: "/Nour-Saneh-CV.pdf",
   },
   nowBuilding: ["TakeMeWhere", "something secret 🤫"],
+  // Self-hosted Umami (Coolify). Paste the Website ID from Umami → Settings → Websites.
+  // Tracking stays off while websiteId is empty.
+  analytics: {
+    umamiScript: "https://stats.noursaneh.com/script.js",
+    websiteId: "",
+  },
 };
 
 export const nav = [
