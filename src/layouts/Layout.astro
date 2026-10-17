@@ -1,29 +1,106 @@
 ---
+// Self-hosted fonts: no render-blocking request to Google Fonts.
+import "@fontsource-variable/bricolage-grotesque/opsz.css";
+import "@fontsource/dm-mono/500.css";
 import "@/styles/global.css";
 import { site } from "@/data/site";
+import { projects } from "@/data/projects";
 
 interface Props {
   title?: string;
   description?: string;
 }
 
-const { title = `${site.name} — ${site.role}`, description = site.tagline } = Astro.props;
+const {
+  // ~50–60 chars: name first (people search "Nour Saneh"), then role + location.
+  title = `${site.name} · ${site.role} in the UAE`,
+  // ~150–160 chars, written to be quoted by Google and AI answers.
+  description = `${site.name} is a front-end & AI engineer in Sharjah, UAE, building React, TypeScript and LLM-powered web apps. See projects, skills and CV, or ask the AI chat.`,
+} = Astro.props;
+const siteUrl = Astro.site!.href;
 const canonical = new URL(Astro.url.pathname, Astro.site);
 const ogImage = new URL("/og-image.jpg", Astro.site);
 
-// Structured data so Google understands this page is about a person (name, role, links).
-const personSchema = {
+// Structured data (schema.org @graph): who this page is about, so Google's
+// knowledge graph and AI answer engines can identify "Nour Saneh" unambiguously.
+const personId = `${siteUrl}#person`;
+const structuredData = {
   "@context": "https://schema.org",
-  "@type": "Person",
-  name: site.name,
-  url: Astro.site?.href,
-  image: new URL("/og-image.jpg", Astro.site).href,
-  jobTitle: site.role,
-  description: site.tagline,
-  address: { "@type": "PostalAddress", addressLocality: "Sharjah", addressCountry: "AE" },
-  alumniOf: { "@type": "CollegeOrUniversity", name: "Lebanese International University" },
-  knowsAbout: ["Front-end development", "React", "TypeScript", "AI / LLM applications", "Supabase", "Astro"],
-  sameAs: [site.links.github, site.links.linkedin],
+  "@graph": [
+    {
+      "@type": "WebSite",
+      "@id": `${siteUrl}#website`,
+      url: siteUrl,
+      name: site.name,
+      inLanguage: "en",
+      publisher: { "@id": personId },
+    },
+    {
+      "@type": "ProfilePage",
+      "@id": `${canonical.href}#webpage`,
+      url: canonical.href,
+      name: title,
+      description,
+      inLanguage: "en",
+      isPartOf: { "@id": `${siteUrl}#website` },
+      mainEntity: { "@id": personId },
+      primaryImageOfPage: ogImage.href,
+      dateModified: new Date().toISOString().slice(0, 10),
+    },
+    {
+      "@type": "Person",
+      "@id": personId,
+      name: site.name,
+      givenName: "Nour",
+      familyName: "Saneh",
+      url: siteUrl,
+      image: ogImage.href,
+      jobTitle: site.role,
+      description: site.tagline,
+      address: { "@type": "PostalAddress", addressLocality: "Sharjah", addressCountry: "AE" },
+      alumniOf: { "@type": "CollegeOrUniversity", name: "Lebanese International University" },
+      knowsLanguage: ["Arabic", "English", "French"],
+      knowsAbout: [
+        "Front-end development",
+        "React",
+        "TypeScript",
+        "Astro",
+        "Tailwind CSS",
+        "Supabase",
+        "LLM applications",
+        "Claude API",
+        "Retrieval-augmented generation (RAG)",
+        "Model Context Protocol (MCP)",
+        "Technical SEO",
+      ],
+      hasCredential: {
+        "@type": "EducationalOccupationalCredential",
+        name: "Build with Claude (10 courses)",
+        credentialCategory: "certificate",
+        recognizedBy: { "@type": "Organization", name: "Anthropic Academy" },
+      },
+      sameAs: [site.links.github, site.links.linkedin],
+    },
+    {
+      "@type": "ItemList",
+      "@id": `${siteUrl}#projects`,
+      name: `Projects by ${site.name}`,
+      itemListElement: projects
+        .filter((p) => !p.teaser)
+        .map((p, i) => ({
+          "@type": "ListItem",
+          position: i + 1,
+          item: {
+            "@type": "CreativeWork",
+            name: p.title,
+            description: p.summary,
+            creator: { "@id": personId },
+            ...(p.url && { url: p.url }),
+            ...(p.code && { codeRepository: p.code }),
+          },
+        })),
+    },
+  ],
 };
 ---
 
@@ -47,21 +124,16 @@ const personSchema = {
     <meta property="og:image" content={ogImage} />
     <meta property="og:image:width" content="1200" />
     <meta property="og:image:height" content="630" />
-    <meta property="og:image:alt" content={`${site.name} — ${site.role}`} />
+    <meta property="og:image:alt" content={`${site.name} — ${site.role} in the UAE`} />
     <meta name="twitter:card" content="summary_large_image" />
     <meta name="twitter:title" content={title} />
     <meta name="twitter:description" content={description} />
     <meta name="twitter:image" content={ogImage} />
     <meta name="author" content={site.name} />
     <link rel="sitemap" href="/sitemap.xml" />
-    <script type="application/ld+json" set:html={JSON.stringify(personSchema)} />
+    <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1" />
+    <script type="application/ld+json" set:html={JSON.stringify(structuredData)} />
 
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link
-      rel="stylesheet"
-      href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,600;12..96,700;12..96,800&family=DM+Mono:wght@500&display=swap"
-    />
     <link rel="preload" as="image" href="/avatar.webp" fetchpriority="high" />
   </head>
   <body id="top">

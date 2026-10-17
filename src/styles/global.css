@@ -11,7 +11,7 @@
   --color-mint: #9fd7a8;
   --color-live: #2e8b4e;
 
-  --font-display: "Bricolage Grotesque", ui-sans-serif, system-ui, sans-serif;
+  --font-display: "Bricolage Grotesque Variable", "Bricolage Grotesque", ui-sans-serif, system-ui, sans-serif;
   --font-mono: "DM Mono", ui-monospace, monospace;
 
   --shadow-pop-xs: 3px 3px 0 var(--color-ink);

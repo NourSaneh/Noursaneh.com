@@ -1,0 +1,20 @@
+# Nour Saneh
+
+> Nour Saneh is a front-end and AI engineer based in Sharjah, United Arab Emirates, building responsive web apps with React, TypeScript, Astro and Supabase, and LLM-powered features with the Claude API, Groq and RAG. Nour holds a BSc in Computer Science from Lebanese International University (2020–2024) and is open to front-end and AI engineering roles in the UAE or remote, plus freelance builds.
+
+## Projects
+- [TakeMeWhere](https://takemewhere.com): UAE-wide place discovery platform for Gen-Z locals, expats and tourists, with a custom 3-gem rating system. React, TypeScript, Supabase (9 tables, row-level security), Vercel.
+- [Baitna Cafe](https://baitna-cafe-pied.vercel.app): Mobile-first website concept for a rooftop café in Sharjah with table booking, delivery links, events, menu and a no-code staff editor. Astro, Tailwind, Keystatic. Code: https://github.com/NourSaneh/BaitnaCafe
+- [Ask-my-AI Bot](https://www.noursaneh.com/#ask): The chat on this portfolio; answers questions about Nour's work using an open-source LLM on Groq grounded in Nour's project data.
+
+## Experience
+- Web Project Coordinator, BrandXB (Dubai), 2025–2026: WordPress and WooCommerce sites, Make.com automations, QA and technical SEO for F&B brands.
+
+## Credentials
+- Anthropic Academy, "Build with Claude" (10 courses): Claude API, tool use, RAG, MCP, agents, Claude Code.
+
+## Links
+- Portfolio: https://www.noursaneh.com/
+- CV (PDF): https://www.noursaneh.com/Nour-Saneh-CV.pdf
+- GitHub: https://github.com/NourSaneh
+- LinkedIn: https://www.linkedin.com/in/noursaneh

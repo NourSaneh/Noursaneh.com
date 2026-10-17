@@ -11,7 +11,7 @@ export interface Project {
   caseStudy?: string;
   code?: string;
   badge?: { label: string; className: string };
-  media: { color: string; placeholder: string; domain?: string; image?: string };
+  media: { color: string; placeholder: string; domain?: string; image?: string; width?: number; height?: number };
   featured?: boolean;
   /** Mystery "coming soon" card: details hidden, not sent to the AI. */
   teaser?: boolean;
@@ -35,13 +35,13 @@ export const projects: Project[] = [
     highlights: [
       "Full Supabase backend: 9 tables, row-level security, auth triggers",
       "Custom 3-gem rating system",
-      "[smart place recommendations]",
+      "Next: natural-language AI search (\"quiet café to work in Sharjah\") with Supabase pgvector + the Claude API",
     ],
     categories: ["web", "ai"],
     stack: ["React", "TypeScript", "Vite", "Tailwind v4", "Supabase", "Cloudinary", "Vercel"],
     url: "https://takemewhere.com",
     badge: { label: "Featured", className: "bg-coral -rotate-3" },
-    media: { color: "bg-sky", placeholder: "TakeMeWhere homepage", domain: "takemewhere.com", image: "/projects/takemewhere.webp" },
+    media: { color: "bg-sky", placeholder: "TakeMeWhere homepage", domain: "takemewhere.com", image: "/projects/takemewhere.webp", width: 1400, height: 742 },
   },
   {
     // Teaser card: a "coming soon" placeholder with no details or links.
@@ -65,7 +65,7 @@ export const projects: Project[] = [
     url: "https://baitna-cafe-pied.vercel.app",
     code: "https://github.com/NourSaneh/BaitnaCafe",
     badge: { label: "Concept", className: "bg-white -rotate-4" },
-    media: { color: "bg-mint", placeholder: "Baitna Cafe homepage", image: "/projects/baitna-cafe.webp" },
+    media: { color: "bg-mint", placeholder: "Baitna Cafe homepage", image: "/projects/baitna-cafe.webp", width: 900, height: 563 },
   },
   {
     slug: "ask-my-ai",
@@ -86,8 +86,8 @@ export const clientWork = {
   title: "WordPress & WooCommerce sites, Make.com automations and technical SEO for F&B brands.",
   // `src` is optional — clients without a logo file show their name instead.
   logos: [
-    { name: "Carrot Sun", url: "https://www.carrotsunoil.com/", src: "/logos/carrot-sun.jpg" },
-    { name: "Maamouly", url: "https://maamouly.com/", src: "/logos/maamouly.png" },
-    { name: "Artisanal Pi", url: "https://artisanalpi.com/", src: "/logos/artisanal-pi.webp" },
-  ] as { name: string; url: string; src?: string }[],
+    { name: "Carrot Sun", url: "https://www.carrotsunoil.com/", src: "/logos/carrot-sun.webp", width: 144, height: 144 },
+    { name: "Maamouly", url: "https://maamouly.com/", src: "/logos/maamouly.webp", width: 413, height: 144 },
+    { name: "Artisanal Pi", url: "https://artisanalpi.com/", src: "/logos/artisanal-pi.webp", width: 148, height: 144 },
+  ] as { name: string; url: string; src?: string; width?: number; height?: number }[],
 };

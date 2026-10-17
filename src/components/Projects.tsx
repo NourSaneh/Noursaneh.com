@@ -28,7 +28,7 @@ function Featured({ p }: { p: Project }) {
             <span className="ml-2 font-mono text-[13px]">{p.media.domain}</span>
           </div>
           {p.media.image ? (
-            <img src={p.media.image} alt={`${p.title} screenshot`} loading="lazy" className="block h-[340px] w-full object-cover object-top" />
+            <img src={p.media.image} alt={`${p.title} homepage screenshot`} width={p.media.width} height={p.media.height} loading="lazy" decoding="async" className="block h-[340px] w-full object-cover object-top" />
           ) : (
             <div className="flex h-[260px] items-center justify-center p-6 text-center text-[17px] font-bold sm:h-[340px]">{p.media.placeholder}</div>
           )}
@@ -90,7 +90,7 @@ function Card({ p }: { p: Project }) {
             {p.media.placeholder}
           </div>
         ) : p.media.image ? (
-          <img src={p.media.image} alt={`${p.title} screenshot`} loading="lazy" className="absolute inset-0 size-full object-cover" />
+          <img src={p.media.image} alt={`${p.title} homepage screenshot`} width={p.media.width} height={p.media.height} loading="lazy" decoding="async" className="absolute inset-0 size-full object-cover" />
         ) : (
           p.media.placeholder
         )}
@@ -195,7 +195,7 @@ function ClientWork() {
             title={logo.name}
             className="flex h-16 items-center rounded-[10px] border-2 border-ink bg-white px-4.5 text-sm font-bold text-ink no-underline transition-transform hover:-translate-y-0.5"
           >
-            {logo.src ? <img src={logo.src} alt={logo.name} className="h-12 w-auto" loading="lazy" /> : logo.name}
+            {logo.src ? <img src={logo.src} alt={`${logo.name} logo`} width={logo.width} height={logo.height} className="h-12 w-auto" loading="lazy" decoding="async" /> : logo.name}
           </a>
         ))}
       </div>

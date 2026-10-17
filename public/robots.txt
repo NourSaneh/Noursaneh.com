@@ -1,4 +1,18 @@
+# Search engines and AI answer engines are welcome to read and cite this portfolio.
 User-agent: *
+Allow: /
+Disallow: /api/
+
+# AI search / answer engines (explicitly allowed so the site can be cited in AI answers)
+User-agent: OAI-SearchBot
+User-agent: ChatGPT-User
+User-agent: GPTBot
+User-agent: PerplexityBot
+User-agent: Perplexity-User
+User-agent: ClaudeBot
+User-agent: Claude-SearchBot
+User-agent: Google-Extended
+User-agent: Applebot-Extended
 Allow: /
 Disallow: /api/
 
