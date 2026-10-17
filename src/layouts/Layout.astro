@@ -1,6 +1,4 @@
 ---
-import Analytics from "@vercel/analytics/astro";
-import SpeedInsights from "@vercel/speed-insights/astro";
 import "@/styles/global.css";
 import { site } from "@/data/site";
 
@@ -73,7 +71,5 @@ const personSchema = {
       >Skip to content</a
     >
     <slot />
-    <Analytics />
-    <SpeedInsights />
   </body>
 </html>

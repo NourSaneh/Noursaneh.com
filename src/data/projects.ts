@@ -74,7 +74,7 @@ export const projects: Project[] = [
     summary:
       "The chat on this site's homepage — an AI assistant that answers questions about my work, powered by an open-source LLM on Groq and grounded in my own project data.",
     categories: ["ai"],
-    stack: ["Groq · GPT-OSS", "Astro", "React", "Vercel"],
+    stack: ["Groq · GPT-OSS", "Astro", "React", "Node", "Coolify"],
     caseStudy: "#ask",
     badge: { label: "AI · Live", className: "bg-sun rotate-3" },
     media: { color: "bg-cobalt", placeholder: "“What has Nour built?”" },

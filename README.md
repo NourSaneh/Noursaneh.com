@@ -26,9 +26,15 @@ npm run preview
 Interactive parts are React islands: `AskAI.tsx` (chat), `Projects.tsx` (filter), `CopyEmail.tsx`.
 Everything else is static Astro, so it ships zero JS.
 
+## Hosting (Coolify / Docker)
+
+The site is built as a standalone Node server (`@astrojs/node`). Coolify builds it from the
+`Dockerfile`: `npm ci` → `astro build` → `node dist/server/entry.mjs` on port **4321**.
+Without Docker: `npm ci && npm run build && HOST=0.0.0.0 PORT=4321 npm start`.
+
 ## Ask-my-AI (free, via Groq)
 
-The chat calls `/api/ask` (`src/pages/api/ask.ts`), a Vercel serverless function that sends the
+The chat calls `/api/ask` (`src/pages/api/ask.ts`), a small server route that sends the
 question plus a short profile built from `src/data/*` (`src/data/profile.ts`) to Groq's free
 `openai/gpt-oss-20b` model (falls back to `openai/gpt-oss-120b`). Edit your data files and the AI learns it automatically. For anything else (FAQs, working style,
 languages…), write it in `src/data/ai-notes.md`.
@@ -36,8 +42,7 @@ languages…), write it in `src/data/ai-notes.md`.
 Setup (free, no credit card):
 
 1. Create a key at https://console.groq.com/keys
-2. Import this repo into Vercel (Hobby plan is free).
-3. Vercel → Project → Settings → Environment Variables → add `GROQ_API_KEY`, then redeploy.
+2. In Coolify → your app → Environment Variables, add `GROQ_API_KEY`, then redeploy.
 
 For local testing, copy `.env.example` to `.env` and paste the key.
 

@@ -3,7 +3,7 @@ import { GROQ_API_KEY, GROQ_MODEL } from "astro:env/server";
 import { buildProfile } from "@/data/profile";
 import { site } from "@/data/site";
 
-// Runs on demand as a serverless function; everything else is static.
+// Runs on demand on the Node server; everything else is pre-rendered.
 export const prerender = false;
 
 const MAX_QUESTION = 400;
@@ -22,7 +22,7 @@ If asked about something unrelated to ${site.shortName} (general coding help, ho
 PROFILE
 ${buildProfile()}`;
 
-// Best-effort per-IP limit. Serverless instances don't share memory, so this
+// Best-effort per-IP limit (in memory, resets on restart). It
 // just stops one visitor from burning the free daily quota in a loop.
 const hits = new Map<string, number[]>();
 function rateLimited(ip: string): boolean {
